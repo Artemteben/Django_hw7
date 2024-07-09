@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "p"
+version = "1"
+description = ""
+authors = ["Artemteben <artyom.teben@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
