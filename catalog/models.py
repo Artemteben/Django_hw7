@@ -31,14 +31,15 @@ class Product(models.Model):
         related_name="products"
     )
     image = models.ImageField(
-        max_length=150, verbose_name="Изображение", blank=True, null=True
+        verbose_name="Изображение", blank=True, null=True
     )
     category = models.CharField(max_length=150, verbose_name="Категория")
     price = models.IntegerField(verbose_name="Цена за покупку")
-    created_at = models.DateField(max_length=150, verbose_name="Дата создания")
+    created_at = models.DateField(blank=True, null=True, verbose_name="Дата создания")
     updated_at = models.DateField(
-        max_length=150, verbose_name="Дата последнего изменения"
+        blank=True, null=True, verbose_name="Дата последнего изменения"
     )
+    manufactured_at = models.DateField(blank=True, null=True, verbose_name="Дата производства продукта")
 
     def __str__(self):
         return (
