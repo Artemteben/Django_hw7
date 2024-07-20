@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Наименование категории")
+    name = models.CharField(max_length=100, verbose_name="Наименование")
     description = models.TextField(
-        verbose_name="Описание категории", blank=True, null=True
+        verbose_name="Описание", blank=True, null=True
     )
 
 
@@ -13,8 +13,8 @@ def __str__(self):
 
 
 class Meta:
-    verbose_name = "категория"
-    verbose_name_plural = "категории"
+    verbose_name = "Категория"
+    verbose_name_plural = "Категории"
 
 
 class Product(models.Model):
@@ -52,5 +52,5 @@ class Product(models.Model):
         )
 
     class Meta:
-        verbose_name = "продукт"
-        verbose_name_plural = "продукты"
+        verbose_name = "Продукт"
+        verbose_name_plural = "Продукты"
