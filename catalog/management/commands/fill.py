@@ -1,64 +1,73 @@
 import json
-import os.path
+import os
 
+from django.conf import settings
 from django.core.management import BaseCommand
 
 from catalog.models import Product, Category
-from django.conf import settings
 
 
 class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
-        path_cat = os.path.join(settings.BASE_DIR, 'catalog/fixtures/category.json')
-        with open(path_cat, encoding='UTF-8') as file:
-            lcat = json.load(file)
-        return lcat
-
-    # Здесь мы получаем данные из фикстурв с категориями
+        # Открываем файл с фикстурами категорий и загружаем данные в формате JSON
+        category_fixture_path = os.path.join(
+            settings.BASE_DIR, "catalog/fixtures/category.json"
+        )
+        with open(category_fixture_path, "r", encoding="utf-8") as file:
+            categories = json.load(file)
+        return categories
 
     @staticmethod
     def json_read_products():
-        path_prod = os.path.join(settings.BASE_DIR, 'catalog/fixtures/product.json')
-        with open(path_prod, encoding='UTF-8') as file:
-            lprod = json.load(file)
-        return lprod
-
-    # Здесь мы получаем данные из фикстурв с продуктами
+        # Открываем файл с фикстурами продуктов и загружаем данные в формате JSON
+        product_fixture_path = os.path.join(
+            settings.BASE_DIR, "catalog/fixtures/product.json"
+        )
+        with open(product_fixture_path, "r", encoding="utf-8") as file:
+            products = json.load(file)
+        return products
 
     def handle(self, *args, **options):
-
-        Category.objects.all().delete()
+        # Удаляем все продукты из базы данных
         Product.objects.all().delete()
-        # Удалите все категории
+        # Удаляем все категории из базы данных
+        Category.objects.all().delete()
 
-        # Создайте списки для хранения объектов
+        # Создаем списки для хранения объектов категорий и продуктов
         product_for_create = []
         category_for_create = []
 
-        # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
-        for i in Command.json_read_categories():
+        # Обходим все значения категорий из фикстуры для получения информации об одном объекте
+        for category in Command.json_read_categories():
             category_for_create.append(
-                Category(name=i['fields']['name']),
-                description=i['fields']['description']
+                Category(
+                    name=category["fields"]["name"],
+                    description=category["fields"]["description"],
+                    pk=category["pk"],
+                )
             )
 
-        # Создаем объекты в базе с помощью метода bulk_create()
-        Category.objects.bulk_create(product_for_create)
+        # Создаем объекты категорий в базе с помощью метода bulk_create()
+        Category.objects.bulk_create(category_for_create)
+        self.stdout.write(self.style.SUCCESS("Successfully loaded categories."))
 
-        # Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
-        for j in Command.json_read_products():
+        # Обходим все значения продуктов из фикстуры для получения информации об одном объекте
+        for product in Command.json_read_products():
             product_for_create.append(
-                Product(name=j['fields']['name']),
-                description=j['fields']['description'],
-                image=j.get('fileds').get('image', 'no photo'),
-                category=Category.objects.get(pk=i["pk"]),
-                price=j['fields']['category'],
-                created_at=j['fields']['created_at'],
-                updated_at=j['fields']['updated_at']
-
+                Product(
+                    name=product["fields"]["name"],
+                    description=product["fields"]["description"],
+                    price=product["fields"]["price"],
+                    image=product['fields'].get("image", ""),
+                    # обработка отсутствующего поля
+                    created_at=product["fields"]["created_at"],
+                    updated_at=product["fields"]["updated_at"],
+                    category=Category.objects.get(pk=category["pk"]),
+                )
             )
 
-        # Создаем объекты в базе с помощью метода bulk_create()
+        # Создаем объекты продуктов в базе с помощью метода bulk_create()
         Product.objects.bulk_create(product_for_create)
+        self.stdout.write(self.style.SUCCESS("Successfully loaded products."))
