@@ -1,0 +1,41 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Avengers",
+      "description": "Avengers",
+      "image": "",
+      "category": null,
+      "price": 150,
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Superman",
+      "description": "Hero",
+      "image": "",
+      "category": null,
+      "price": 150,
+      "created_at": null,
+      "updated_at": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Spiderman",
+      "description": "spider",
+      "image": "",
+      "category": null,
+      "price": 150,
+      "created_at": null,
+      "updated_at": null
+    }
+  }
+]
