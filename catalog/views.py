@@ -14,5 +14,5 @@ def contacts(request):
     return render(request, "contacts.html")
 
 
-def index():
-    return None
+def index(request):
+    return render(request, "base.html")
