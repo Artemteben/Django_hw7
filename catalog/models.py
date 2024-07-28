@@ -60,3 +60,41 @@ class Category(models.Model):
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
+
+class Blog(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Заголовок")
+    slug = models.SlugField(
+        max_length=50,
+        unique=True,
+        blank=True,
+        null=True,
+    )
+    content = models.TextField(verbose_name="Описание")
+    preview = models.ImageField(
+        upload_to="catalog/image",
+        blank=True,
+        null=True,
+        verbose_name="Изображение",
+        help_text="Загрузите фото продукта",
+    )
+    date_creation = models.DateTimeField(verbose_name="Дата создания")
+    publication_sign = models.BooleanField(verbose_name="Уже опубликовано ?", default=False)
+    views_counter = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Счётчик просмотров",
+        help_text="Укажите количество просмотров",
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("catalog:blog_detail", kwargs={"pk": self.pk, "slug": self.slug})
+
+    class Meta:
+        verbose_name = "Блог"
+        verbose_name_plural = "Блоги"
+        ordering = ["publication_sign", "-date_creation"]
