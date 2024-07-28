@@ -39,6 +39,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    views_counter = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Счётчик просмотров",
+        help_text="Укажите количество просмотров",
+    )
+
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
