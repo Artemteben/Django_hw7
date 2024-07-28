@@ -1,4 +1,6 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 
 class Product(models.Model):
@@ -78,7 +80,7 @@ class Blog(models.Model):
         verbose_name="Изображение",
         help_text="Загрузите фото продукта",
     )
-    date_creation = models.DateTimeField(verbose_name="Дата создания")
+    date_creation = models.DateField(verbose_name="Дата создания", blank=True, null=True)
     publication_sign = models.BooleanField(verbose_name="Уже опубликовано ?", default=False)
     views_counter = models.PositiveIntegerField(
         default=0,

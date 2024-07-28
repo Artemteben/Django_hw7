@@ -2,12 +2,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 <head>
-    <script type="text/javascript"
-            src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=HUjBpj5ggCLnkZzmbnRxL0Ita3b7EHxO9c_SIvTDs13NWqvVLoGv2ajiUF31l8flWkCLf36SD1drpfmQmH6AQkQgY0-nqnpfQ2DzB_wqqwA"
-            charset="UTF-8"></script>
-    <link rel="stylesheet" crossorigin="anonymous"
-          href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9nZXRib290c3RyYXAuY29tL2RvY3MvNS4zL2V4YW1wbGVzL2FsYnVtLw"/>
-    <script src="{% static 'js/color-modes.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/color-modes.js'%}"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +16,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -192,14 +187,16 @@
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Heroes</h1>
-                <p class="lead text-body-secondary">Be a hero.</p>
-                <p><a class="btn btn-primary" href="{% url 'catalog:product_create' %}"
-                      role="button">Создать продукт</a></p>
+                <h1 class="fw-light">БЛОГ</h1>
+                <p class="lead text-body-secondary"> Аудиокниги</p>
+                <p>
+                    <a class="btn btn-primary" href="{% url 'catalog:blog_create' %}" role="button">Создать
+                        блог</a>
+                    <a class="btn btn-primary" href="{% url 'catalog:catalog_list' %}" role="button"> Магазин</a>
+                </p>
             </div>
         </div>
     </section>
-
     {% block content %}
     {% endblock %}
 </main>
@@ -214,7 +211,7 @@
                 href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
     </div>
 </footer>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}">
-</script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
 </body>
 </html>

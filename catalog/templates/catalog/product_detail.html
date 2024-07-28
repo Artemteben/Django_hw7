@@ -9,7 +9,7 @@
                     <img src="{{ product.image | media_filter}}">
                     <div class="card-body">
                         <p class="card-text">Наименование: {{product.name}}</p>
-                        <p class="card-text">Описание продукта: {{product.description | truncate_chars:100}}</p>
+                        <p class="card-text">Описание продукта: {{product.description}}</p>
                         <p class="card-text">Цена: {{product.price}}</p>
                         <p class="card-text">Дата создания продукта: {{product.created_at}}</p>
                         <p class="card-text">Дата последнего изменения: {{product.updated_at}}</p>
