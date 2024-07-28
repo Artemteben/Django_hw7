@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.template.defaultfilters import slugify
 from django.urls import reverse_lazy, reverse
+from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.models import Product, Blog
 
@@ -119,7 +119,7 @@ class BlogUpdateView(UpdateView):
     success_url = reverse_lazy("catalog:blog_list")
 
     def get_success_url(self):
-        return reverse_lazy("catalog:blog_detail", args=[self.kwargs.get("pk")])
+        return reverse('catalog:blog_detail', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
 
 class BlogDeleteView(DeleteView):
