@@ -1,7 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+
+from catalog.forms import ProductForm
 from catalog.models import Product, Blog
 
 
@@ -45,19 +53,20 @@ class ProductDetailView(DetailView):
 #     context1 = {'product': product}
 #     return render(request, 'product_detail.html', context1)
 
+
 class ProductCreateView(CreateView):
     model = Product
-    fields = ("name", "description", "price", "category", "image", "created_at")
+    form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = ("name", "description", "price", "category", "image", "created_at")
+    form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
 
     def get_success_url(self):
-        return reverse('catalog:product_detail', args=[self.kwargs.get("pk")])
+        return reverse("catalog:product_detail", args=[self.kwargs.get("pk")])
 
 
 class ProductDeleteView(DeleteView):
@@ -118,7 +127,10 @@ class BlogUpdateView(UpdateView):
     success_url = reverse_lazy("catalog:blog_list")
 
     def get_success_url(self):
-        return reverse('catalog:blog_detail', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
+        return reverse(
+            "catalog:blog_detail",
+            kwargs={"pk": self.object.pk, "slug": self.object.slug},
+        )
 
 
 class BlogDeleteView(DeleteView):

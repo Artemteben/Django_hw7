@@ -4,36 +4,25 @@ from django.urls import reverse
 
 
 class Product(models.Model):
-    name = models.CharField(
-        max_length=200,
-        verbose_name="Наименование")
+    name = models.CharField(max_length=200, verbose_name="Наименование")
     description = models.TextField(
         verbose_name="Описание",
         blank=True,
         null=True,
     )
     image = models.ImageField(
-        upload_to='catalog/image',
-        verbose_name="Изображение",
-        blank=True,
-        null=True
+        upload_to="catalog/image", verbose_name="Изображение", blank=True, null=True
     )
     category = models.ForeignKey(
-        'Category',
+        "Category",
         on_delete=models.SET_NULL,
         verbose_name="Категория",
         blank=True,
         null=True,
         related_name="products",
     )
-    price = models.IntegerField(
-        verbose_name="Цена за покупку"
-    )
-    created_at = models.DateField(
-        blank=True,
-        null=True,
-        verbose_name="Дата создания"
-    )
+    price = models.IntegerField(verbose_name="Цена за покупку")
+    created_at = models.DateField(blank=True, null=True, verbose_name="Дата создания")
     updated_at = models.DateField(
         blank=True, null=True, verbose_name="Дата последнего изменения"
     )
@@ -80,8 +69,12 @@ class Blog(models.Model):
         verbose_name="Изображение",
         help_text="Загрузите фото продукта",
     )
-    date_creation = models.DateField(verbose_name="Дата создания", blank=True, null=True)
-    publication_sign = models.BooleanField(verbose_name="Уже опубликовано ?", default=False)
+    date_creation = models.DateField(
+        verbose_name="Дата создания", blank=True, null=True
+    )
+    publication_sign = models.BooleanField(
+        verbose_name="Уже опубликовано ?", default=False
+    )
     views_counter = models.PositiveIntegerField(
         default=0,
         verbose_name="Счётчик просмотров",
@@ -100,3 +93,35 @@ class Blog(models.Model):
         verbose_name = "Блог"
         verbose_name_plural = "Блоги"
         ordering = ["publication_sign", "-date_creation"]
+
+
+class Version(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.SET_NULL,
+        related_name="versions",
+        null=True,
+        blank=True,
+        verbose_name="Продукт",
+    )
+    name = models.CharField(max_length=200, verbose_name="Наименование")
+    category = models.ForeignKey(
+        "Category",
+        on_delete=models.SET_NULL,
+        verbose_name="Категория",
+        blank=True,
+        null=True,
+        related_name="version_products",
+    )
+    price = models.IntegerField(verbose_name="Цена за покупку", default=0)
+    created_at = models.DateField(blank=True, null=True, verbose_name="Дата создания")
+    updated_at = models.DateField(
+        blank=True, null=True, verbose_name="Дата последнего изменения"
+    )
+
+    class Meta:
+        verbose_name = "Продукт версии"
+        verbose_name_plural = "Продукты версий"
+
+    def __str__(self):
+        return self.name

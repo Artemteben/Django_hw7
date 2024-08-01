@@ -60,7 +60,7 @@ class Command(BaseCommand):
                     name=product["fields"]["name"],
                     description=product["fields"]["description"],
                     price=product["fields"]["price"],
-                    image=product['fields'].get("image", ""),
+                    image=product["fields"].get("image", ""),
                     # обработка отсутствующего поля
                     created_at=product["fields"]["created_at"],
                     updated_at=product["fields"]["updated_at"],
