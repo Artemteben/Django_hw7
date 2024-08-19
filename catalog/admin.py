@@ -16,9 +16,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ("id", "title")
+    list_display = ("title", "content", "date_creation", "publication_sign")
 
 
 @admin.register(Version)
 class VersionAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("id", "version_name", "version_number")
