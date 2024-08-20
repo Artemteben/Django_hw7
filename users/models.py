@@ -9,6 +9,8 @@ class User(AbstractUser):
     phone = models.CharField(max_length=35, verbose_name="Номер телефона", blank=True, null=True)
     tg_name = models.CharField(max_length=50, verbose_name="Имя в Телеграм", blank=True, null=True)
     avatar = models.ImageField(upload_to="users_avatars/", verbose_name="Фотография профиля", blank=True, null=True)
+    token = models.CharField(max_length=100, verbose_name="Token", blank=True, null=True)
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
