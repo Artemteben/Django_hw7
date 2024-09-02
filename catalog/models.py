@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 
+from users.models import User
+
 
 class Product(models.Model):
     name = models.CharField(max_length=200, verbose_name="Наименование")
@@ -35,6 +37,10 @@ class Product(models.Model):
         verbose_name="Счётчик просмотров",
         help_text="Укажите количество просмотров",
     )
+    owner = models.ForeignKey(
+        User, verbose_name="Создатель", blank=True, null=True, on_delete=models.SET_NULL
+    )
+    publication_sign = models.BooleanField(verbose_name="Опубликовано?", default=False)
 
     class Meta:
         verbose_name = "Продукт"

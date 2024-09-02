@@ -42,3 +42,9 @@ class VersionForm(StyleFormMixin, ModelForm):
             if bad_name in cleaned_data:
                 raise ValidationError(" Запрещенные слова недопустимы")
         return cleaned_data
+
+
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ["description", "category", "publication_sign"]
