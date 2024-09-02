@@ -5,7 +5,7 @@
 ## Установка
 
 1. **Клонируйте репозиторий:**
-   git@github.com:Artemteben/Django_hw6.git
+   git@github.com:Artemteben/Django_hw7.git
 
 2. **Создайте виртуальное окружение и активируйте его:**
     ```sh
